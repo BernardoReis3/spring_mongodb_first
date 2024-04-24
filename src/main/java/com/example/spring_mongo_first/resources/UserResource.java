@@ -1,14 +1,17 @@
 package com.example.spring_mongo_first.resources;
 
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.spring_mongo_first.domain.User;
+import com.example.spring_mongo_first.dto.UserDTO;
 import com.example.spring_mongo_first.services.UserService;
 
 @RestController
@@ -18,10 +21,11 @@ public class UserResource {
 	@Autowired
 	private UserService userService;
 	
-	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<List<User>> findAll(){		
-		List<User> users = userService.findAll();		
-		return ResponseEntity.ok().body(users);
+	@GetMapping
+	public ResponseEntity<List<UserDTO>> findAll(){		
+		List<User> users = userService.findAll();	
+		List<UserDTO> usersDTO = users.stream().map(x -> new UserDTO(x)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(usersDTO);
 	}
 
 }
