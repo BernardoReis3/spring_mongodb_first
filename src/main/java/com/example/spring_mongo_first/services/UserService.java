@@ -35,6 +35,9 @@ public class UserService {
 		return new User(uDTO.getId(), uDTO.getName(), uDTO.getEmail());
 	}
 	
-	
+	public void deleteById(String id) {
+		findById(id);
+		userRepo.deleteById(id);
+	}
 
 }
