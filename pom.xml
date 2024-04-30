@@ -13,7 +13,7 @@
 	<artifactId>spring_mongo_first</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>spring_mongo_first</name>
-	<description>First project spring with mongodb</description>
+	<description>First spring project with mongodb</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
