@@ -1,5 +1,6 @@
 package com.example.spring_mongo_first.services;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,5 +26,9 @@ public class PostService {
 		return postRepo.findByTitleFilter(text);
 	}
 	
+	public List<Post> searchTextByDate(String text, Date beginDate, Date endDate){
+		endDate = new Date(endDate.getTime() + 24 * 60 * 60 * 1000);
+		return postRepo.searchTextByDate(text, beginDate, endDate);
+	}
 
 }

@@ -1,5 +1,6 @@
 package com.example.spring_mongo_first.resources;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,18 @@ public class PostResource {
 	public ResponseEntity<List<Post>> findByTitle(@RequestParam(value = "text", defaultValue = "") String text){
 		text = EncodeURL.decodeURL(text);
 		List<Post> posts = postService.findByTitle(text);
+		return ResponseEntity.ok().body(posts);
+		
+	}
+	
+	@GetMapping(value = "/textfullsearch")
+	public ResponseEntity<List<Post>> findTextByDate(@RequestParam(value = "text", defaultValue = "") String text,
+			@RequestParam(value = "beginDate", defaultValue = "") String beginDate,
+			@RequestParam(value = "endDate", defaultValue = "") String endDate){
+		text = EncodeURL.decodeURL(text);
+		Date begin = EncodeURL.convertDate(beginDate, new Date(0L));
+		Date end = EncodeURL.convertDate(endDate, new Date());
+		List<Post> posts = postService.searchTextByDate(text, begin, end);
 		return ResponseEntity.ok().body(posts);
 		
 	}
